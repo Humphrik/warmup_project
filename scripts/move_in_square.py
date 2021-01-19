@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-""" This script receives ROS messages containing the 3D coordinates of a single point and prints them out """
+""" This script sends velocity commands to a robot, causing it to move in a square-pattern. """
 import rospy
 
-from geometry_msgs.msg import Twist, Vector3, PoseWithCovariance, Pose, Quaternion, TwistWithCovariance
-from nav_msgs.msg import Odometry
+from geometry_msgs.msg import Twist, Vector3#, PoseWithCovariance, Pose, Quaternion, TwistWithCovariance
+#from nav_msgs.msg import Odometry
 from math import pi
 
 
@@ -17,7 +17,7 @@ class ROS:
    
 
     def __init__(self):
-        rospy.init_node('stop_at_wall')
+        rospy.init_node('move_in_square')
         self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         #self.sub = rospy.Subscriber('/odom', Odometry, self.check_turn)  
         #self.turn_angle = 0
