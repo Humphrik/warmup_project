@@ -8,6 +8,7 @@ The structure of "move_in_square.py" is somewhat similar to the object oriented 
 The run() function of ROS consists primarily of a loop, which alternates between sleeping (via rospy.sleep()) and moving (via a custom function named move().) The move() function in ROS takes two Vector3 arguments and simply publishes new Twist arguments (position and rotation respectively) to the cmd_vel topic.
 #### Gif of Behavior
 ![Put gif here!](move_in_square.gif)
+(I'll make it a little smaller next time.)
 #### Challenges
 As mentioned previously, the largest challenge faced in the program was reliably turning 90 degrees so to make a square pattern. However, this matter was somewhat simplified upon the discovery that the robot's rotational velocity is given in radians per second. Therefore, rotating pi/2 radians could be done by setting the z-axis rotational velocity to pi/2/x, where x is the duration of the turn. Ideally, x should be high to minimize the time spent accelerating by the robot.
 Another problem faced during this section of the project was the "skidding" of the robot whenever it stopped to turn. Initially, my turn command set the linear velocity of the robot to 0 before increasing its rotational velocity. However, this sudden brake and turn proved to be unreliable, and could cause the robot to turn too much or too little. To solve this matter, I ensured that the linear x velocity remained constant throughout the behavior, resulting in wider, but more accurate turns.
