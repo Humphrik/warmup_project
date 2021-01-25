@@ -20,23 +20,22 @@ class Follower:
 
         def lidar_check(self, msg):
 
-                # To get distances from side, use sin(angle)
+                # To get exact distance from side, multiply by sin(angle)
                 IDEAL_DISTANCE = 1.5
 
-                #Check lidar scan 360-30 degrees from front.
+                # Check lidar scan 360-30 degrees from front.
                 distance = msg.ranges[330]
-                print ("Current distance: %d", distance)
 
-
+                # Limit the maximum range to avoid complications.
                 if (distance > msg.range_max):
                     distance = msg.range_max
 
+                # Proportional control.
 
                 error = IDEAL_DISTANCE - distance
                         
                 Kp = 0.6/distance
                 p_out = Kp * error
-                print (p_out) 
                 self.move(Vector3(0.2, 0, 0,), Vector3(0, 0, p_out))
 
 
@@ -46,6 +45,6 @@ class Follower:
                 
 if __name__ == '__main__':
 
-        rospy.init_node('line_follower')
+        rospy.init_node('wall_follower')
         follower = Follower()
         follower.run()
